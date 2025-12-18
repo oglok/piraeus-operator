@@ -561,9 +561,13 @@ func (r *LinstorSatelliteReconciler) reconcileStoragePools(ctx context.Context, 
 
 		if existingPool == nil && pool.Source != nil && len(pool.Source.HostDevices) > 0 {
 			err := lc.Nodes.CreateDevicePool(ctx, lsatellite.Name, lapi.PhysicalStorageCreate{
-				ProviderKind: pool.ProviderKind(),
-				PoolName:     pool.PoolName(),
-				DevicePaths:  pool.Source.HostDevices,
+				ProviderKind:         pool.ProviderKind(),
+				PoolName:             pool.PoolName(),
+				PvCreateArguments:    pool.PvCreateArguments(),
+				VgCreateArguments:    pool.VgCreateArguments(),
+				LvCreateArguments:    pool.LvCreateArguments(),
+				ZpoolCreateArguments: pool.ZpoolCreateArguments(),
+				DevicePaths:          pool.Source.HostDevices,
 				WithStoragePool: lapi.PhysicalStorageStoragePoolCreate{
 					Name:  pool.Name,
 					Props: linstorhelper.UpdateLastApplyProperty(expectedProperties),

@@ -62,7 +62,7 @@ func (r *LinstorNodeConnectionCustomValidator) ValidateCreate(ctx context.Contex
 	return warnings, nil
 }
 
-func (r *LinstorNodeConnectionCustomValidator) ValidateUpdate(ctx context.Context, obj, old runtime.Object) (admission.Warnings, error) {
+func (r *LinstorNodeConnectionCustomValidator) ValidateUpdate(ctx context.Context, old, obj runtime.Object) (admission.Warnings, error) {
 	nodeConnection, ok := obj.(*piraeusv1.LinstorNodeConnection)
 	if !ok {
 		return nil, apierrors.NewBadRequest(fmt.Sprintf("expected LinstorNodeConnection, got %T", obj))

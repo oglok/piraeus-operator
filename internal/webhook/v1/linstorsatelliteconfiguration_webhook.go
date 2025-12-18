@@ -64,7 +64,7 @@ func (r *LinstorSatelliteConfigurationCustomValidator) ValidateCreate(ctx contex
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
-func (r *LinstorSatelliteConfigurationCustomValidator) ValidateUpdate(ctx context.Context, obj, old runtime.Object) (admission.Warnings, error) {
+func (r *LinstorSatelliteConfigurationCustomValidator) ValidateUpdate(ctx context.Context, old, obj runtime.Object) (admission.Warnings, error) {
 	satelliteConfiguration, ok := obj.(*piraeusv1.LinstorSatelliteConfiguration)
 	if !ok {
 		return nil, fmt.Errorf("expected LinstorSatelliteConfiguration but got %T", obj)
@@ -98,9 +98,7 @@ func (r *LinstorSatelliteConfigurationCustomValidator) validate(obj, old *piraeu
 		oldSPs = old.Spec.StoragePools
 	}
 
-	var warnings admission.Warnings
-
-	errs := ValidateStoragePools(obj.Spec.StoragePools, oldSPs, field.NewPath("spec", "storagePools"))
+	warnings, errs := ValidateStoragePools(obj.Spec.StoragePools, oldSPs, field.NewPath("spec", "storagePools"))
 	errs = append(errs, ValidateNodeSelector(obj.Spec.NodeSelector, field.NewPath("spec", "nodeSelector"))...)
 	errs = append(errs, ValidateNodeProperties(obj.Spec.Properties, field.NewPath("spec", "properties"))...)
 	errs = append(errs, ValidatePodTemplate(obj.Spec.PodTemplate, field.NewPath("spec", "podTemplate"))...)

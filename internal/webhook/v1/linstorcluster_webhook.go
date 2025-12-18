@@ -63,7 +63,7 @@ func (r *LinstorClusterCustomValidator) ValidateCreate(ctx context.Context, obj 
 	return warnings, nil
 }
 
-func (r *LinstorClusterCustomValidator) ValidateUpdate(ctx context.Context, obj, old runtime.Object) (admission.Warnings, error) {
+func (r *LinstorClusterCustomValidator) ValidateUpdate(ctx context.Context, old, obj runtime.Object) (admission.Warnings, error) {
 	linstorCluster, ok := obj.(*piraeusiov1.LinstorCluster)
 	if !ok {
 		return nil, fmt.Errorf("expected LinstorCluster but got %T", obj)
