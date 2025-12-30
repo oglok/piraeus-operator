@@ -151,7 +151,7 @@ apply a label to the Kubernetes node object.
 # Upgrade from v1.5 to v1.6
 
 The `csi-snapshotter` subchart was removed from this repository. Users who relied on it for their snapshot support
-should switch to the seperate charts provided by the Piraeus team
+should switch to the separate charts provided by the Piraeus team
 on [artifacthub.io](https://artifacthub.io/packages/search?repo=piraeus-charts)
 The new charts also include notes on how to upgrade to newer CRD versions.
 
